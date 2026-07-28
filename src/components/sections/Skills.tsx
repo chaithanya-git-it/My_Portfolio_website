@@ -2,32 +2,32 @@
 
 import { motion } from "framer-motion";
 import { Section } from "@/components/ui/Section";
-import { Bot, Bug, Database, Smartphone } from "lucide-react";
+import { Bot, Bug, Database, Smartphone, Zap } from "lucide-react";
 
 const skillGroups = [
   {
     category: "Mobile & Frontend",
     icon: Smartphone,
     color: "#9b6dff",
-    items: ["React Native", "React.js", "React Navigation", "Redux", "TypeScript", "JavaScript"],
+    items: ["React Native", "TypeScript", "JavaScript", "Redux", "Re.Pack (Micro-Frontend)", "React Navigation"],
+  },
+  {
+    category: "AI, ML & Backend",
+    icon: Zap,
+    color: "#ff6da2",
+    items: ["Google ML Kit", "Speech-to-Text", "Backend & API Planning", "Camera Integration", "Juspay Gateway"],
   },
   {
     category: "Tools & DevOps",
     icon: Database,
-    color: "#ff6da2",
-    items: ["Android Studio", "Xcode", "Firebase", "Jenkins", "Bitbucket", "VS Code", "Postman"],
-  },
-  {
-    category: "Debugging & Analytics",
-    icon: Bug,
     color: "#9b6dff",
-    items: ["Reactotron", "Dynatrace", "UserExperior", "Appsflyer"],
+    items: ["Android Studio", "Xcode", "Jenkins CI/CD", "Firebase", "Bitbucket", "Postman"],
   },
   {
-    category: "AI Tools",
+    category: "Ownership & Leadership",
     icon: Bot,
     color: "#ff6da2",
-    items: ["GitHub Copilot", "ChatGPT", "Claude", "Gemini"],
+    items: ["End-to-End Execution", "Team Guidance & Mentorship", "Requirement Analysis", "Reactotron", "Dynatrace"],
   },
 ];
 

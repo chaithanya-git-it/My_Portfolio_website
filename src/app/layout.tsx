@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Outfit } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
+import { FloatingBackground } from "@/components/ui/FloatingBackground";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -16,9 +17,9 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "React Native Developer Portfolio",
+  title: "Chaithanya A — Senior Software Engineer | Mobile Portfolio",
   description:
-    "Premium, elegant portfolio for a React Native Developer with 3.5 years of experience building scalable mobile experiences.",
+    "Portfolio of Chaithanya A, Senior Software Engineer with 3.9 years of experience. Master Mind & Tech Titan Award winner planning backend & app requirements and delivering scalable mobile apps at Digit Insurance.",
 };
 
 export default function RootLayout({
@@ -38,54 +39,7 @@ export default function RootLayout({
         }}
       >
         {/* ── Animated gradient blobs ── */}
-        <div
-          aria-hidden="true"
-          style={{
-            position: "fixed",
-            top: "-10%",
-            left: "-10%",
-            width: "40%",
-            height: "40%",
-            borderRadius: "50%",
-            background: "rgba(155,109,255,0.18)",
-            filter: "blur(120px)",
-            zIndex: 0,
-            pointerEvents: "none",
-            animation: "blob 7s infinite",
-          }}
-        />
-        <div
-          aria-hidden="true"
-          style={{
-            position: "fixed",
-            bottom: "-10%",
-            right: "-10%",
-            width: "40%",
-            height: "40%",
-            borderRadius: "50%",
-            background: "rgba(255,109,162,0.15)",
-            filter: "blur(120px)",
-            zIndex: 0,
-            pointerEvents: "none",
-            animation: "blob 7s infinite 2s",
-          }}
-        />
-        <div
-          aria-hidden="true"
-          style={{
-            position: "fixed",
-            top: "40%",
-            left: "20%",
-            width: "30%",
-            height: "30%",
-            borderRadius: "50%",
-            background: "rgba(216,180,226,0.08)",
-            filter: "blur(100px)",
-            zIndex: 0,
-            pointerEvents: "none",
-            animation: "blob 7s infinite 4s",
-          }}
-        />
+        <FloatingBackground />
 
         <Navbar />
 

@@ -5,19 +5,21 @@ import { Section } from "@/components/ui/Section";
 
 const experiences = [
   {
-    role: "Software Engineer",
+    role: "Senior Software Engineer",
     company: "Digit Insurance",
+    logo: "/digit-life-logo.svg",
     period: "Nov 2022 – Present",
     location: "Bangalore, IN",
     description:
-      "Building and maintaining the SuperApp platform with micro-frontend architecture using Re.Pack. Delivered critical Life Insurance modules, earning the Tech Titan Award for zero-delay delivery and maintaining 99.9% crash-free sessions.",
-    skills: ["React Native", "TypeScript", "Re.Pack", "Redux", "Jenkins", "Jest", "Reactotron"],
+      "Promoted to Senior Software Engineer. Received the Master Mind Award for successful project releases and the Tech Titan Award for zero-delay execution. Took complete end-to-end responsibility, planning and guiding backend & app requirements from initial requirement analysis to final release. Engineered the Life Insurance Endorsement module (Name, Email, Mobile, Address & Bank/Payment updates) and Annuity & Liveliness pension payout module (Camera, ML Kit, Speech-to-Text) while guiding a 2-developer team with excellent communication.",
+    skills: ["React Native", "Backend & API Planning", "ML Kit", "Speech-to-Text", "Camera APIs", "Re.Pack", "TypeScript", "Team Guidance"],
     color: "#9b6dff",
     isCurrent: true,
   },
   {
     role: "Software Developer Intern",
     company: "PluginHive",
+    logo: "/pluginhive.png",
     period: "Oct 2021 – Nov 2021",
     location: "Bangalore, IN",
     description:
@@ -30,7 +32,7 @@ const experiences = [
 
 export function Experience() {
   return (
-    <Section id="experience">
+    <Section id="experience" className="pt-6 pb-20 md:pt-8 md:pb-32">
       <div style={{ display: "flex", flexDirection: "column", gap: "4rem", maxWidth: "52rem", margin: "0 auto" }}>
 
         {/* Header */}
@@ -45,9 +47,9 @@ export function Experience() {
               marginBottom: "0.75rem",
             }}
           >
-            Professional{" "}
+            Work{" "}
             <span style={{ background: "linear-gradient(to right, #9b6dff, #ff6da2)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
-              Journey
+              Experience
             </span>
             .
           </h2>
@@ -105,18 +107,46 @@ export function Experience() {
                 >
                   {/* Top row */}
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "0.5rem", marginBottom: "0.75rem" }}>
-                    <div>
-                      <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                        <h3 style={{ fontFamily: "var(--font-outfit, Arial, sans-serif)", fontWeight: 700, fontSize: "1.2rem", color: "#f8f8f2", margin: 0 }}>
-                          {exp.role}
-                        </h3>
-                        {exp.isCurrent && (
-                          <span style={{ fontSize: "0.65rem", fontWeight: 600, color: "#9b6dff", background: "rgba(155,109,255,0.12)", border: "1px solid rgba(155,109,255,0.3)", borderRadius: "9999px", padding: "0.15rem 0.5rem" }}>
-                            Current
-                          </span>
-                        )}
+                    <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+                      <div
+                        style={{
+                          width: "38px",
+                          height: "38px",
+                          borderRadius: "50%",
+                          background: "#ffffff",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          padding: "0.35rem",
+                          border: `1.5px solid ${exp.color}`,
+                          boxShadow: `0 0 10px ${exp.color}35`,
+                          overflow: "hidden",
+                          flexShrink: 0,
+                        }}
+                      >
+                        <img
+                          src={exp.logo}
+                          alt={exp.company}
+                          style={{
+                            width: "90%",
+                            height: "90%",
+                            objectFit: "contain",
+                          }}
+                        />
                       </div>
-                      <p style={{ color: exp.color, fontWeight: 500, margin: "0.1rem 0 0" }}>{exp.company} · {exp.location}</p>
+                      <div>
+                        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                          <h3 style={{ fontFamily: "var(--font-outfit, Arial, sans-serif)", fontWeight: 700, fontSize: "1.2rem", color: "#f8f8f2", margin: 0 }}>
+                            {exp.role}
+                          </h3>
+                          {exp.isCurrent && (
+                            <span style={{ fontSize: "0.65rem", fontWeight: 600, color: "#9b6dff", background: "rgba(155,109,255,0.12)", border: "1px solid rgba(155,109,255,0.3)", borderRadius: "9999px", padding: "0.15rem 0.5rem" }}>
+                              Current
+                            </span>
+                          )}
+                        </div>
+                        <p style={{ color: exp.color, fontWeight: 500, margin: "0.1rem 0 0" }}>{exp.company} · {exp.location}</p>
+                      </div>
                     </div>
                     <span style={{ padding: "0.25rem 0.75rem", borderRadius: "9999px", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)", color: "rgba(248,248,242,0.6)", fontSize: "0.8rem", fontWeight: 500, whiteSpace: "nowrap" }}>
                       {exp.period}

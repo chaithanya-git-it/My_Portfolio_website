@@ -1,31 +1,13 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Section } from "@/components/ui/Section";
-import { Award, Smartphone, Zap } from "lucide-react";
-
-const highlights = [
-  {
-    icon: Award,
-    color: "#ffd700",
-    title: "Tech Titan Award",
-    desc: "Recognized for zero-delay delivery at Digit Insurance.",
-  },
-  {
-    icon: Zap,
-    color: "#ff6da2",
-    title: "Performance",
-    desc: "99.9% crash-free sessions across all apps.",
-  },
-  {
-    icon: Smartphone,
-    color: "#9b6dff",
-    title: "Native Expertise",
-    desc: "Android & iOS with micro-frontend architecture.",
-  },
-];
+import { AwardModal, awardsData, AwardDetail } from "@/components/ui/AwardModal";
 
 export function About() {
+  const [selectedAward, setSelectedAward] = useState<AwardDetail | null>(null);
+
   return (
     <Section id="about">
       <div style={{ display: "flex", flexDirection: "column", gap: "4rem" }}>
@@ -64,134 +46,113 @@ export function About() {
           />
         </div>
 
-        {/* Two-column */}
+        {/* Two-column Layout */}
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-            gap: "3rem",
+            gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+            gap: "3.5rem",
             alignItems: "center",
           }}
         >
-          {/* Bio */}
+          {/* Bio Column */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.7 }}
           >
-            <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem", color: "rgba(248,248,242,0.75)", fontSize: "1.05rem", lineHeight: 1.8 }}>
-              <p style={{ margin: 0 }}>
-                Mobile App Developer with{" "}
-                <strong style={{ color: "#d8b4e2", fontWeight: 500 }}>3.5 years of experience</strong> building
-                Android and iOS applications using React Native, JavaScript, and TypeScript.
-              </p>
-              <p style={{ margin: 0 }}>
-                Strong expertise in{" "}
-                <strong style={{ color: "#f8f8f2", fontWeight: 500 }}>
-                  module migration, micro-frontend architecture (Re.Pack), debugging, deployments,
-                  and performance optimisation.
-                </strong>{" "}
-                Currently at <strong style={{ color: "#9b6dff", fontWeight: 500 }}>Digit Insurance</strong>, Bangalore.
-              </p>
-              <p style={{ margin: 0 }}>
-                🏆 Awarded the{" "}
-                <strong style={{ color: "#ffd700", fontWeight: 600 }}>Tech Titan Award</strong> for delivering
-                high-quality features with zero delays. Highly focused on clean code, app stability, and
-                user-centric solutions.
-              </p>
-            </div>
-
-            {/* Highlights */}
             <div
               style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fill, minmax(140px, 1fr))",
-                gap: "1.5rem",
-                marginTop: "2.5rem",
+                display: "flex",
+                flexDirection: "column",
+                gap: "1.25rem",
+                color: "rgba(248,248,242,0.75)",
+                fontSize: "1.05rem",
+                lineHeight: 1.8,
               }}
             >
-              {highlights.map((item, i) => (
-                <motion.div
-                  key={item.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.15 * i }}
-                  style={{ display: "flex", flexDirection: "column", gap: "0.6rem" }}
-                >
-                  <div
-                    style={{
-                      width: "2.5rem",
-                      height: "2.5rem",
-                      borderRadius: "0.75rem",
-                      background: `${item.color}15`,
-                      border: `1px solid ${item.color}30`,
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      color: item.color,
-                    }}
-                  >
-                    <item.icon size={18} />
-                  </div>
-                  <p style={{ fontWeight: 600, color: "#f8f8f2", margin: 0, fontSize: "0.9rem" }}>{item.title}</p>
-                  <p style={{ color: "rgba(248,248,242,0.5)", margin: 0, fontSize: "0.8rem" }}>{item.desc}</p>
-                </motion.div>
-              ))}
+              <p style={{ margin: 0 }}>
+                Senior Software Engineer with{" "}
+                <strong style={{ color: "#d8b4e2", fontWeight: 500 }}>3.9 years of experience</strong> planning &amp; delivering end-to-end mobile applications at{" "}
+                <strong style={{ color: "#9b6dff", fontWeight: 500 }}>Digit Insurance</strong>, Bangalore.
+              </p>
+              <p style={{ margin: 0 }}>
+                Proven track record of taking{" "}
+                <strong style={{ color: "#f8f8f2", fontWeight: 500 }}>
+                  end-to-end responsibility from requirement analysis to execution
+                </strong>
+                . Planned and guided backend &amp; mobile requirements for the Life Insurance Endorsement suite,
+                Annuity &amp; Liveliness pension module (Camera, ML Kit, Speech-to-Text), and micro-frontend architecture
+                (Re.Pack) while guiding a team of 2 engineers. Recognized for excellent communication, strong ownership, and consistently delivering high-quality products.
+              </p>
             </div>
           </motion.div>
 
-          {/* Profile image visual */}
+          {/* Profile Image visual with FLOATING AWARDS (3 AWARDS CLICKABLE) */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8 }}
-            style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              padding: "2rem 0",
+            }}
           >
-            <div style={{ position: "relative", width: "340px", height: "340px" }}>
-
-              {/* Ambient glow behind card */}
-              <div style={{
-                position: "absolute",
-                inset: "-40px",
-                background: "radial-gradient(ellipse, rgba(155,109,255,0.2) 0%, rgba(255,109,162,0.1) 50%, transparent 70%)",
-                zIndex: 0,
-                filter: "blur(30px)",
-              }} />
+            <div style={{ position: "relative", width: "320px", height: "320px" }}>
+              {/* Ambient Glow */}
+              <div
+                style={{
+                  position: "absolute",
+                  inset: "-40px",
+                  background:
+                    "radial-gradient(ellipse, rgba(155,109,255,0.25) 0%, rgba(255,109,162,0.15) 50%, transparent 70%)",
+                  zIndex: 0,
+                  filter: "blur(32px)",
+                }}
+              />
 
               {/* Outer animated gradient border */}
-              <div style={{
-                position: "absolute",
-                inset: "-3px",
-                borderRadius: "50%",
-                background: "linear-gradient(135deg, #9b6dff, #ff6da2, #9b6dff)",
-                backgroundSize: "300% 300%",
-                animation: "gradientRotate 4s linear infinite",
-                zIndex: 0,
-              }} />
+              <div
+                style={{
+                  position: "absolute",
+                  inset: "-3px",
+                  borderRadius: "50%",
+                  background: "linear-gradient(135deg, #9b6dff, #ff6da2, #00f2fe, #9b6dff)",
+                  backgroundSize: "300% 300%",
+                  animation: "gradientRotate 4s linear infinite",
+                  zIndex: 0,
+                }}
+              />
 
-              {/* Inner dark gap */}
-              <div style={{
-                position: "absolute",
-                inset: "2px",
-                borderRadius: "50%",
-                background: "#0f0f14",
-                zIndex: 1,
-              }} />
+              {/* Inner dark background */}
+              <div
+                style={{
+                  position: "absolute",
+                  inset: "2px",
+                  borderRadius: "50%",
+                  background: "#0f0f14",
+                  zIndex: 1,
+                }}
+              />
 
-              {/* Photo */}
-              <div style={{
-                position: "absolute",
-                inset: "5px",
-                borderRadius: "50%",
-                overflow: "hidden",
-                zIndex: 2,
-              }}>
+              {/* Central Photo */}
+              <div
+                style={{
+                  position: "absolute",
+                  inset: "6px",
+                  borderRadius: "50%",
+                  overflow: "hidden",
+                  zIndex: 2,
+                  boxShadow: "inset 0 0 20px rgba(0,0,0,0.6)",
+                }}
+              >
                 <img
                   src="/avatar.png"
-                  alt="Chaithanya A — React Native Developer"
+                  alt="Chaithanya A — Senior Software Engineer"
                   style={{
                     width: "100%",
                     height: "100%",
@@ -199,62 +160,92 @@ export function About() {
                     objectPosition: "center 15%",
                     transition: "transform 0.5s ease",
                   }}
-                  onMouseEnter={(e) => { (e.currentTarget as HTMLImageElement).style.transform = "scale(1.04)"; }}
-                  onMouseLeave={(e) => { (e.currentTarget as HTMLImageElement).style.transform = "scale(1)"; }}
+                  onMouseEnter={(e) => {
+                    (e.currentTarget as HTMLImageElement).style.transform = "scale(1.05)";
+                  }}
+                  onMouseLeave={(e) => {
+                    (e.currentTarget as HTMLImageElement).style.transform = "scale(1)";
+                  }}
                 />
               </div>
 
-              {/* "Open to work" badge — top right */}
+              {/* TOP: Open to Work Badge */}
               <motion.div
                 initial={{ opacity: 0, y: -10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 }}
+                style={{
+                  position: "absolute",
+                  top: "-22px",
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  zIndex: 10,
+                }}
+              >
+                <motion.div
+                  animate={{ y: [0, -4, 0] }}
+                  transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
+                  style={{
+                    background: "rgba(15,15,20,0.95)",
+                    backdropFilter: "blur(12px)",
+                    WebkitBackdropFilter: "blur(12px)",
+                    border: "1.5px solid #10b981",
+                    borderRadius: "9999px",
+                    padding: "0.3rem 0.85rem",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.4rem",
+                    boxShadow: "0 4px 18px rgba(16,185,129,0.35)",
+                  }}
+                >
+                  <span style={{ width: "7px", height: "7px", borderRadius: "50%", background: "#10b981", boxShadow: "0 0 10px #10b981", display: "inline-block" }} />
+                  <span style={{ fontSize: "0.72rem", fontWeight: 700, color: "#ffffff", whiteSpace: "nowrap" }}>Open to Work</span>
+                </motion.div>
+              </motion.div>
+
+              {/* BOTTOM: Single Trophy Badge — Triggers Confetti & 3-Award Modal */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.5 }}
                 style={{
                   position: "absolute",
-                  top: "12px",
-                  right: "-24px",
-                  background: "rgba(15,15,20,0.9)",
-                  backdropFilter: "blur(12px)",
-                  WebkitBackdropFilter: "blur(12px)",
-                  border: "1px solid rgba(155,109,255,0.4)",
-                  borderRadius: "9999px",
-                  padding: "0.35rem 0.85rem",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "0.4rem",
+                  bottom: "-22px",
+                  left: "50%",
+                  transform: "translateX(-50%)",
                   zIndex: 10,
-                  boxShadow: "0 4px 20px rgba(0,0,0,0.3)",
+                  cursor: "pointer",
                 }}
+                onClick={() => setSelectedAward(awardsData.techtitan)}
               >
-                <span style={{ width: "7px", height: "7px", borderRadius: "50%", background: "#9b6dff", boxShadow: "0 0 8px #9b6dff", display: "inline-block" }} />
-                <span style={{ fontSize: "0.72rem", fontWeight: 600, color: "#d8b4e2", whiteSpace: "nowrap" }}>Open to work</span>
+                <motion.div
+                  animate={{ y: [0, 4, 0] }}
+                  transition={{ duration: 3.8, repeat: Infinity, ease: "easeInOut" }}
+                  whileHover={{ scale: 1.08 }}
+                  whileTap={{ scale: 0.95 }}
+                  title="Click to view all 3 Official Awards & Certificates"
+                  style={{
+                    background: "linear-gradient(135deg, rgba(255,215,0,0.2) 0%, rgba(15,15,20,0.95) 100%)",
+                    backdropFilter: "blur(14px)",
+                    WebkitBackdropFilter: "blur(14px)",
+                    border: "1.5px solid #ffd700",
+                    borderRadius: "9999px",
+                    padding: "0.32rem 0.95rem",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.45rem",
+                    boxShadow: "0 6px 20px rgba(255,215,0,0.4)",
+                  }}
+                >
+                  <span style={{ fontSize: "0.95rem", lineHeight: 1 }}>🏆</span>
+                  <span style={{ fontSize: "0.76rem", fontWeight: 800, color: "#ffd700", whiteSpace: "nowrap", letterSpacing: "0.2px" }}>
+                    3 Honor Awards ✨
+                  </span>
+                </motion.div>
               </motion.div>
 
-              {/* 🏆 Tech Titan badge — bottom left */}
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.6 }}
-                style={{
-                  position: "absolute",
-                  bottom: "12px",
-                  left: "-28px",
-                  background: "rgba(15,15,20,0.9)",
-                  backdropFilter: "blur(12px)",
-                  WebkitBackdropFilter: "blur(12px)",
-                  border: "1px solid rgba(255,215,0,0.3)",
-                  borderRadius: "1rem",
-                  padding: "0.6rem 1rem",
-                  zIndex: 10,
-                  textAlign: "center",
-                  boxShadow: "0 4px 20px rgba(0,0,0,0.3)",
-                }}
-              >
-                <p style={{ fontSize: "1.2rem", fontWeight: 800, color: "#ffd700", margin: 0, lineHeight: 1 }}>🏆</p>
-                <p style={{ fontSize: "0.62rem", color: "rgba(248,248,242,0.55)", margin: "0.2rem 0 0", whiteSpace: "nowrap" }}>Tech Titan</p>
-              </motion.div>
             </div>
 
             <style>{`
@@ -267,8 +258,9 @@ export function About() {
           </motion.div>
         </div>
       </div>
+
+      {/* Render Award Viewer Modal */}
+      <AwardModal award={selectedAward} onClose={() => setSelectedAward(null)} />
     </Section>
   );
 }
-
-
