@@ -136,6 +136,25 @@ export function Projects() {
   const [activeStory, setActiveStory] = useState<CompanyStory | null>(null);
   const [currentProjectIndex, setCurrentProjectIndex] = useState<number>(0);
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const [activeTreeCompany, setActiveTreeCompany] = useState<CompanyStory | null>(null);
+
+  const openTreeModal = (story: CompanyStory) => {
+    setActiveTreeCompany(story);
+  };
+
+  const closeTreeModal = () => {
+    setActiveTreeCompany(null);
+  };
+
+  useEffect(() => {
+    const handleShow = () => setIsVisible(true);
+    window.addEventListener("show-projects-section", handleShow);
+    if (typeof window !== "undefined" && window.location.hash === "#projects") {
+      setIsVisible(true);
+    }
+    return () => window.removeEventListener("show-projects-section", handleShow);
+  }, []);
 
   const openStory = (story: CompanyStory, projectIndex: number = 0) => {
     setActiveStory(story);
@@ -198,32 +217,41 @@ export function Projects() {
 
   return (
     <Section id="projects" className="pt-16 pb-4 md:pt-24 md:pb-6">
-      <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
-        {/* Header */}
-        <div>
-          <h2
-            style={{
-              fontSize: "clamp(2rem, 5vw, 3.5rem)",
-              fontFamily: "var(--font-outfit, Arial, sans-serif)",
-              fontWeight: 800,
-              color: "#f8f8f2",
-              letterSpacing: "-0.025em",
-              marginBottom: "0.75rem",
-            }}
+      <AnimatePresence>
+        {isVisible && (
+          <motion.div
+            initial={{ opacity: 0, height: 0, y: -20 }}
+            animate={{ opacity: 1, height: "auto", y: 0 }}
+            exit={{ opacity: 0, height: 0, y: -20 }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
+            style={{ overflow: "hidden" }}
           >
-            Project{" "}
-            <span
-              style={{
-                background: "linear-gradient(to right, #9b6dff, #ff6da2)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-              }}
-            >
-              Highlights
-            </span>
-            .
-          </h2>
+            <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+              {/* Header */}
+              <div>
+                <h2
+                  style={{
+                    fontSize: "clamp(2rem, 5vw, 3.5rem)",
+                    fontFamily: "var(--font-outfit, Arial, sans-serif)",
+                    fontWeight: 800,
+                    color: "#f8f8f2",
+                    letterSpacing: "-0.025em",
+                    marginBottom: "0.75rem",
+                  }}
+                >
+                  Featured{" "}
+                  <span
+                    style={{
+                      background: "linear-gradient(to right, #9b6dff, #ff6da2)",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      backgroundClip: "text",
+                    }}
+                  >
+                    Projects
+                  </span>
+                  .
+                </h2>
           <div
             style={{
               width: "5rem",
@@ -234,176 +262,400 @@ export function Projects() {
             }}
           />
           <p style={{ color: "rgba(248,248,242,0.65)", fontSize: "1.05rem", maxWidth: "38rem" }}>
-            Tap on any <strong>Company Story circle</strong> to open work highlights &amp; project media.
+            Click on any project card to open full deliverables, metrics &amp; media.
           </p>
         </div>
 
         {/* ========================================================================= */}
-        {/* CIRCLE STORY ROW */}
+        {/* COMPANY CARDS GRID (CLICK TO OPEN POP-UP TREE MODAL) */}
         {/* ========================================================================= */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "0.5rem",
-              fontSize: "0.82rem",
-              color: "#d8b4e2",
-              fontWeight: 700,
-              letterSpacing: "0.05em",
-              textTransform: "uppercase",
-            }}
-          >
-            <Sparkles size={15} style={{ color: "#9b6dff" }} /> Tap a story to view
-          </div>
-
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "2.25rem",
-              overflowX: "auto",
-              paddingBottom: "1rem",
-              scrollbarWidth: "none",
-            }}
-          >
-            {/* Render Company Stories */}
-            {companyStories.map((story) => (
-              <motion.div
-                key={story.id}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => openStory(story, 0)}
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  gap: "0.65rem",
-                  cursor: "pointer",
-                  flexShrink: 0,
-                }}
-              >
-                {/* Animated Story Ring Wrapper */}
-                <div
-                  style={{
-                    position: "relative",
-                    width: "86px",
-                    height: "86px",
-                    borderRadius: "50%",
-                    padding: "3.5px",
-                    background: story.ringGradient,
-                    boxShadow: "0 6px 25px rgba(155,109,255,0.35)",
-                    transition: "transform 0.3s ease",
-                  }}
-                >
-                  {/* Inner Dark Background */}
+        <div style={{ marginTop: "1rem", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "1.75rem" }}>
+          {companyStories.map((story) => (
+            <motion.div
+              key={story.id}
+              whileHover={{ y: -6, scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => openTreeModal(story)}
+              style={{
+                background: "rgba(15, 15, 20, 0.92)",
+                backdropFilter: "blur(24px)",
+                WebkitBackdropFilter: "blur(24px)",
+                border: "1.5px solid rgba(155, 109, 255, 0.35)",
+                borderRadius: "1.75rem",
+                padding: "1.75rem",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+                gap: "1.5rem",
+                cursor: "pointer",
+                boxShadow: "0 12px 35px rgba(0,0,0,0.4), 0 0 25px rgba(155,109,255,0.15)",
+                transition: "all 0.3s ease",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = "#9b6dff";
+                e.currentTarget.style.boxShadow = "0 18px 45px rgba(0,0,0,0.6), 0 0 35px rgba(155,109,255,0.35)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = "rgba(155, 109, 255, 0.35)";
+                e.currentTarget.style.boxShadow = "0 12px 35px rgba(0,0,0,0.4), 0 0 25px rgba(155,109,255,0.15)";
+              }}
+            >
+              {/* Header: Logo, Title, Role, Badge */}
+              <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "1rem" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
                   <div
                     style={{
-                      width: "100%",
-                      height: "100%",
+                      width: "48px",
+                      height: "48px",
                       borderRadius: "50%",
-                      background: "#0d0d12",
-                      padding: "3px",
+                      padding: "2.5px",
+                      background: story.ringGradient,
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
                     }}
                   >
-                    {/* Circle Image Avatar */}
                     <div
                       style={{
                         width: "100%",
                         height: "100%",
                         borderRadius: "50%",
-                        overflow: "hidden",
                         background: story.logoBg,
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
-                        padding: "0.25rem",
+                        padding: "3px",
+                        overflow: "hidden",
                       }}
                     >
-                      <img
-                        src={story.logo}
-                        alt={story.companyName}
-                        style={{
-                          width: "92%",
-                          height: "92%",
-                          objectFit: "contain",
-                        }}
-                      />
+                      <img src={story.logo} alt={story.companyName} style={{ width: "90%", height: "90%", objectFit: "contain" }} />
                     </div>
                   </div>
 
-                  {/* Badge Counter overlay */}
-                  <span
-                    style={{
-                      position: "absolute",
-                      bottom: "-2px",
-                      right: "-2px",
-                      background: "#9b6dff",
-                      color: "#ffffff",
-                      fontSize: "0.68rem",
-                      fontWeight: 800,
-                      padding: "0.15rem 0.5rem",
-                      borderRadius: "9999px",
-                      border: "2.5px solid #0d0d12",
-                      boxShadow: "0 2px 10px rgba(0,0,0,0.5)",
-                    }}
-                  >
-                    {story.projects.length}
-                  </span>
+                  <div>
+                    <h3 style={{ margin: "0 0 0.2rem 0", fontSize: "1.35rem", fontWeight: 800, color: "#ffffff", fontFamily: "var(--font-outfit, Arial, sans-serif)" }}>
+                      {story.companyName}
+                    </h3>
+                    <span style={{ fontSize: "0.82rem", color: "rgba(248,248,242,0.65)", fontWeight: 500 }}>
+                      {story.role}
+                    </span>
+                  </div>
                 </div>
 
-                {/* Company Name & Badge */}
-                <div style={{ textAlign: "center" }}>
-                  <p style={{ margin: 0, fontSize: "0.88rem", fontWeight: 700, color: "#ffffff" }}>
-                    {story.shortName}
-                  </p>
-                  <span style={{ fontSize: "0.72rem", color: "rgba(248,248,242,0.55)", fontWeight: 500 }}>
-                    {story.badge}
-                  </span>
-                </div>
-              </motion.div>
-            ))}
-
-            {/* Future Stories Placeholder */}
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                gap: "0.65rem",
-                opacity: 0.55,
-                flexShrink: 0,
-              }}
-            >
-              <div
-                style={{
-                  width: "86px",
-                  height: "86px",
-                  borderRadius: "50%",
-                  border: "2px dashed rgba(255,255,255,0.3)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  color: "rgba(248,248,242,0.6)",
-                }}
-              >
-                <Plus size={26} />
-              </div>
-              <div style={{ textAlign: "center" }}>
-                <p style={{ margin: 0, fontSize: "0.88rem", fontWeight: 600, color: "rgba(248,248,242,0.6)" }}>
-                  More Soon
-                </p>
-                <span style={{ fontSize: "0.72rem", color: "rgba(248,248,242,0.35)" }}>
-                  Future Work
+                <span
+                  style={{
+                    fontSize: "0.75rem",
+                    fontWeight: 800,
+                    color: "#ffd700",
+                    background: "rgba(255,215,0,0.12)",
+                    border: "1px solid rgba(255,215,0,0.35)",
+                    padding: "0.25rem 0.75rem",
+                    borderRadius: "9999px",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  {story.projects.length} {story.projects.length === 1 ? "Project" : "Projects"}
                 </span>
               </div>
-            </div>
-          </div>
+
+              {/* Compact Project Pills Preview */}
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.6rem" }}>
+                <span style={{ fontSize: "0.72rem", color: "rgba(248,248,242,0.45)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em" }}>
+                  Featured Projects:
+                </span>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "0.45rem" }}>
+                  {story.projects.map((p, pIdx) => (
+                    <span
+                      key={pIdx}
+                      style={{
+                        fontSize: "0.76rem",
+                        fontWeight: 700,
+                        color: p.accent || "#9b6dff",
+                        background: `${p.accent}18`,
+                        border: `1px solid ${p.accent}40`,
+                        padding: "0.25rem 0.75rem",
+                        borderRadius: "0.5rem",
+                      }}
+                    >
+                      {p.title.split("—")[0].trim()}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Action Button */}
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  fontSize: "0.88rem",
+                  fontWeight: 800,
+                  color: "#9b6dff",
+                  paddingTop: "0.85rem",
+                  borderTop: "1px solid rgba(255,255,255,0.07)",
+                }}
+              >
+                <span>{story.projects.length === 1 ? "View Project" : "View Projects"}</span>
+                <span style={{ fontSize: "1.1rem" }}>→</span>
+              </div>
+            </motion.div>
+          ))}
         </div>
       </div>
+
+      {/* ========================================================================= */}
+      {/* POP-UP TREE MODAL FOR COMPANY PROJECTS */}
+      {/* ========================================================================= */}
+      <AnimatePresence>
+        {activeTreeCompany && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            style={{
+              position: "fixed",
+              inset: 0,
+              zIndex: 99990,
+              background: "rgba(10, 10, 15, 0.88)",
+              backdropFilter: "blur(24px)",
+              WebkitBackdropFilter: "blur(24px)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              padding: "1.5rem",
+            }}
+            onClick={closeTreeModal}
+          >
+            <motion.div
+              initial={{ scale: 0.9, y: 20, opacity: 0 }}
+              animate={{ scale: 1, y: 0, opacity: 1 }}
+              exit={{ scale: 0.9, y: 20, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              style={{
+                width: "100%",
+                maxWidth: "52rem",
+                maxHeight: "85vh",
+                background: "rgba(18, 18, 26, 0.98)",
+                border: "1.5px solid rgba(155, 109, 255, 0.4)",
+                borderRadius: "2rem",
+                padding: "2rem",
+                overflowY: "auto",
+                boxShadow: "0 25px 80px rgba(0,0,0,0.8), 0 0 50px rgba(155,109,255,0.25)",
+                display: "flex",
+                flexDirection: "column",
+                gap: "1.75rem",
+              }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Pop-up Modal Header */}
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", borderBottom: "1px solid rgba(255,255,255,0.08)", paddingBottom: "1.25rem" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+                  <div
+                    style={{
+                      width: "44px",
+                      height: "44px",
+                      borderRadius: "50%",
+                      padding: "2.5px",
+                      background: activeTreeCompany.ringGradient,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        borderRadius: "50%",
+                        background: activeTreeCompany.logoBg,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        padding: "2px",
+                        overflow: "hidden",
+                      }}
+                    >
+                      <img src={activeTreeCompany.logo} alt={activeTreeCompany.companyName} style={{ width: "90%", height: "90%", objectFit: "contain" }} />
+                    </div>
+                  </div>
+
+                  <div>
+                    <h3 style={{ margin: 0, fontSize: "1.4rem", fontWeight: 800, color: "#ffffff", fontFamily: "var(--font-outfit, Arial, sans-serif)" }}>
+                      {activeTreeCompany.companyName} <span style={{ color: "#9b6dff" }}>Tree</span>
+                    </h3>
+                    <p style={{ margin: 0, fontSize: "0.85rem", color: "rgba(248,248,242,0.6)" }}>
+                      {activeTreeCompany.role} • {activeTreeCompany.projects.length} {activeTreeCompany.projects.length === 1 ? "Project" : "Projects"}
+                    </p>
+                  </div>
+                </div>
+
+                <button
+                  onClick={closeTreeModal}
+                  style={{
+                    width: "38px",
+                    height: "38px",
+                    borderRadius: "50%",
+                    background: "rgba(255,255,255,0.08)",
+                    border: "1px solid rgba(255,255,255,0.15)",
+                    color: "#f8f8f2",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    cursor: "pointer",
+                  }}
+                >
+                  <X size={20} />
+                </button>
+              </div>
+
+              {/* Pop-up Tree Branches */}
+              <div
+                style={{
+                  position: "relative",
+                  paddingLeft: "2.2rem",
+                  marginLeft: "1rem",
+                  borderLeft: "2.5px dashed rgba(155, 109, 255, 0.5)",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "1.75rem",
+                  paddingTop: "0.5rem",
+                  paddingBottom: "0.5rem",
+                }}
+              >
+                {activeTreeCompany.projects.map((proj, pIdx) => (
+                  <div
+                    key={pIdx}
+                    style={{
+                      position: "relative",
+                      display: "flex",
+                      alignItems: "stretch",
+                    }}
+                  >
+                    {/* Horizontal Branch Stem & Connector Node */}
+                    <div
+                      style={{
+                        position: "absolute",
+                        left: "-2.2rem",
+                        top: "2rem",
+                        width: "2.2rem",
+                        height: "2px",
+                        background: "linear-gradient(to right, rgba(155, 109, 255, 0.6), " + (proj.accent || "#9b6dff") + ")",
+                      }}
+                    />
+                    <div
+                      style={{
+                        position: "absolute",
+                        left: "-2.55rem",
+                        top: "1.75rem",
+                        width: "10px",
+                        height: "10px",
+                        borderRadius: "50%",
+                        background: proj.accent || "#9b6dff",
+                        boxShadow: `0 0 10px ${proj.accent || "#9b6dff"}`,
+                      }}
+                    />
+
+                    {/* Project Card Node in Modal */}
+                    <motion.div
+                      whileHover={{ x: 6, scale: 1.01 }}
+                      whileTap={{ scale: 0.99 }}
+                      onClick={() => openStory(activeTreeCompany, pIdx)}
+                      style={{
+                        width: "100%",
+                        background: "rgba(255,255,255,0.03)",
+                        border: `1.5px solid ${proj.accent}55`,
+                        borderRadius: "1.35rem",
+                        padding: "1.35rem",
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "0.9rem",
+                        cursor: "pointer",
+                        boxShadow: `0 8px 25px rgba(0,0,0,0.3), 0 0 15px ${proj.accent}15`,
+                        transition: "all 0.3s ease",
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.borderColor = proj.accent || "#9b6dff";
+                        e.currentTarget.style.boxShadow = `0 12px 35px rgba(0,0,0,0.5), 0 0 25px ${proj.accent}35`;
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.borderColor = `${proj.accent}55`;
+                        e.currentTarget.style.boxShadow = `0 8px 25px rgba(0,0,0,0.3), 0 0 15px ${proj.accent}15`;
+                      }}
+                    >
+                      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "0.5rem" }}>
+                        <span style={{ fontSize: "0.72rem", color: "rgba(248,248,242,0.5)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                          Branch Node 0{pIdx + 1}
+                        </span>
+
+                        <span
+                          style={{
+                            fontSize: "0.75rem",
+                            fontWeight: 800,
+                            color: proj.accent || "#9b6dff",
+                            background: `${proj.accent}18`,
+                            border: `1px solid ${proj.accent}45`,
+                            padding: "0.22rem 0.75rem",
+                            borderRadius: "9999px",
+                          }}
+                        >
+                          {proj.award}
+                        </span>
+                      </div>
+
+                      <div>
+                        <h4
+                          style={{
+                            fontSize: "1.2rem",
+                            fontWeight: 800,
+                            color: "#ffffff",
+                            margin: "0 0 0.4rem 0",
+                            fontFamily: "var(--font-outfit, Arial, sans-serif)",
+                          }}
+                        >
+                          {proj.title}
+                        </h4>
+                        <p style={{ fontSize: "0.9rem", color: "rgba(248,248,242,0.75)", margin: 0, lineHeight: 1.55 }}>
+                          {proj.description}
+                        </p>
+                      </div>
+
+                      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "0.5rem", paddingTop: "0.65rem", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+                        <div style={{ display: "flex", flexWrap: "wrap", gap: "0.35rem" }}>
+                          {proj.tags.map((tag, tIdx) => (
+                            <span
+                              key={tIdx}
+                              style={{
+                                fontSize: "0.68rem",
+                                fontWeight: 600,
+                                color: "#d8b4e2",
+                                background: "rgba(155,109,255,0.12)",
+                                border: "1px solid rgba(155,109,255,0.25)",
+                                padding: "0.15rem 0.55rem",
+                                borderRadius: "0.4rem",
+                              }}
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+
+                        <div style={{ display: "flex", alignItems: "center", gap: "0.3rem", fontSize: "0.82rem", fontWeight: 800, color: proj.accent || "#9b6dff" }}>
+                          <span>Open Deliverables &amp; Metrics</span>
+                          <span>→</span>
+                        </div>
+                      </div>
+                    </motion.div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  )}
+</AnimatePresence>
 
       {/* ========================================================================= */}
       {/* HIGH-CONTRAST TRANSPARENT BACKDROP STORY MODAL */}
