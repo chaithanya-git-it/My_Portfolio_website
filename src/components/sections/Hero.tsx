@@ -6,6 +6,7 @@ import Link from "next/link";
 import { ArrowRight, Mail, Award, CheckCircle2, Sparkles, FileText } from "lucide-react";
 import { AwardModal, awardsData, AwardDetail } from "@/components/ui/AwardModal";
 import { ResumeModal } from "@/components/ui/ResumeModal";
+import { getAssetPath } from "@/lib/basePath";
 
 export function Hero() {
   const [selectedAward, setSelectedAward] = useState<AwardDetail | null>(null);
@@ -327,7 +328,7 @@ export function Hero() {
                   }}
                 >
                   <img
-                    src="/avatar.png"
+                    src={getAssetPath("/avatar.png")}
                     alt="Chaithanya A — Senior Software Engineer"
                     style={{
                       width: "100%",
@@ -380,7 +381,7 @@ export function Hero() {
                         boxShadow: "0 0 12px rgba(252,185,18,0.3)",
                       }}
                     >
-                      <img src="/digit-life-logo.svg" alt="Digit Insurance Logo" style={{ width: "100%", height: "100%", objectFit: "contain" }} />
+                      <img src={getAssetPath("/digit-life-logo.svg")} alt="Digit Insurance Logo" style={{ width: "100%", height: "100%", objectFit: "contain" }} />
                     </div>
                     <div>
                       <p style={{ fontSize: "0.75rem", fontWeight: 700, color: "#f8f8f2", margin: 0, fontFamily: "var(--font-outfit, Arial, sans-serif)" }}>

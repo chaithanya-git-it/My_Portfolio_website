@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Section } from "@/components/ui/Section";
 import { Sparkles, ChevronLeft, ChevronRight, X, Plus, Award, CheckCircle2, Maximize2 } from "lucide-react";
 import { ProjectDetail } from "@/components/ui/ProjectModal";
+import { getAssetPath } from "@/lib/basePath";
 
 export interface CompanyStory {
   id: string;
@@ -328,7 +329,7 @@ export function Projects() {
                         overflow: "hidden",
                       }}
                     >
-                      <img src={story.logo} alt={story.companyName} style={{ width: "90%", height: "90%", objectFit: "contain" }} />
+                      <img src={getAssetPath(story.logo)} alt={story.companyName} style={{ width: "90%", height: "90%", objectFit: "contain" }} />
                     </div>
                   </div>
 
@@ -476,7 +477,7 @@ export function Projects() {
                         overflow: "hidden",
                       }}
                     >
-                      <img src={activeTreeCompany.logo} alt={activeTreeCompany.companyName} style={{ width: "90%", height: "90%", objectFit: "contain" }} />
+                      <img src={getAssetPath(activeTreeCompany.logo)} alt={activeTreeCompany.companyName} style={{ width: "90%", height: "90%", objectFit: "contain" }} />
                     </div>
                   </div>
 
@@ -810,7 +811,7 @@ export function Projects() {
                     }}
                   >
                     <img
-                      src={activeStory.logo}
+                      src={getAssetPath(activeStory.logo)}
                       alt={activeStory.companyName}
                       style={{
                         width: "92%",

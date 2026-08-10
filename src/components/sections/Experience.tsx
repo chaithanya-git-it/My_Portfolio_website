@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Section } from "@/components/ui/Section";
+import { getAssetPath } from "@/lib/basePath";
 
 const experiences = [
   {
@@ -125,7 +126,7 @@ export function Experience() {
                         }}
                       >
                         <img
-                          src={exp.logo}
+                          src={getAssetPath(exp.logo)}
                           alt={exp.company}
                           style={{
                             width: "90%",

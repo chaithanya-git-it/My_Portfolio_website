@@ -6,6 +6,7 @@ import { Section } from "@/components/ui/Section";
 import { AwardModal, awardsData, AwardDetail } from "@/components/ui/AwardModal";
 import { companyStories, CompanyStory } from "@/components/sections/Projects";
 import { CheckCircle, Award, Smartphone, Sparkles, FolderGit2, ChevronLeft, ChevronRight, X, Plus, CheckCircle2 } from "lucide-react";
+import { getAssetPath } from "@/lib/basePath";
 
 export function About() {
   const [selectedAward, setSelectedAward] = useState<AwardDetail | null>(null);
@@ -146,7 +147,7 @@ export function About() {
                   }}
                 >
                   <img
-                    src="/about-avatar.png"
+                    src={getAssetPath("/about-avatar.png")}
                     alt="Chaithanya A — Senior Software Engineer"
                     style={{
                       width: "100%",
@@ -411,7 +412,7 @@ export function About() {
                     }}
                   >
                     <img
-                      src={activeStory.logo}
+                      src={getAssetPath(activeStory.logo)}
                       alt={activeStory.companyName}
                       style={{ width: "92%", height: "92%", objectFit: "contain" }}
                     />
