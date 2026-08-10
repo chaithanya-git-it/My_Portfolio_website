@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Chaithanya A - Portfolio 🚀
 
-## Getting Started
+A high-performance, interactive 3D portfolio website built with Next.js 16, TypeScript, Tailwind CSS, and Framer Motion.
 
-First, run the development server:
+## 🔗 Website Preview
+
+👉 **[https://chaithanya-git-it.github.io/My_Portfolio_website/](https://chaithanya-git-it.github.io/My_Portfolio_website/)**
+
+---
+
+## 👨‍💻 About Me
+
+**Senior Software Engineer** with **3.9+ years of experience** at **Digit Insurance**. Honored with the **Master Mind Award** and **Tech Titan Award** for taking complete end-to-end ownership—from requirement analysis and backend architecture planning to production execution and release.
+
+- 🏆 **Master Mind Award Winner**: Automated pension payout & facial/liveliness verification (ML Kit + Speech-to-Text).
+- 🏆 **Tech Titan Award Winner**: Zero-delay micro-frontend architecture migration using Re.Pack.
+- 📱 **Mobile & Web Leadership**: End-to-end Life Insurance Endorsement suite and cross-platform native modules.
+
+---
+
+## 🛠️ Tech Stack
+
+- **Framework**: [Next.js 16](https://nextjs.org/) (App Router & Static Export)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **UI & Styling**: [React 19](https://react.dev/), [Tailwind CSS v4](https://tailwindcss.com/)
+- **Animations**: [Framer Motion](https://www.framer.com/motion/)
+- **Icons**: [Lucide React](https://lucide.dev/), [React Icons](https://react-icons.github.io/react-icons/)
+- **Deployment**: [GitHub Actions](https://github.com/features/actions) -> [GitHub Pages](https://pages.github.com/)
+
+---
+
+## 💻 Getting Started
+
+Follow these steps to run the project locally:
+
+### Prerequisites
+
+- **Node.js**: `v20.x` or higher
+- **npm**: `v10.x` or higher
+
+### Installation & Development
 
 ```bash
+# Clone the repository
+git clone https://github.com/chaithanya-git-it/My_Portfolio_website.git
+
+# Navigate into the project folder
+cd My_Portfolio_website
+
+# Install dependencies
+npm install
+
+# Run development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser to view the site.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🚀 Build & Production Export
 
-## Learn More
+```bash
+# Build static export
+npm run build
+```
 
-To learn more about Next.js, take a look at the following resources:
+The compiled output will be generated inside the `./out` directory.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## ⚙️ Deployment
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project deploys automatically to **GitHub Pages** via GitHub Actions on every push to the `main` branch using the [.github/workflows/deploy.yml](.github/workflows/deploy.yml) workflow.
