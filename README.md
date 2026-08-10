@@ -6,6 +6,13 @@ A high-performance, interactive 3D portfolio website built with Next.js 16, Type
 
 👉 **[https://chaithanya-git-it.github.io/My_Portfolio_website/](https://chaithanya-git-it.github.io/My_Portfolio_website/)**
 
+<div align="center">
+  <br />
+  <a href="https://chaithanya-git-it.github.io/My_Portfolio_website/">
+    <img src="public/preview.png" alt="Chaithanya A Portfolio Website Preview" width="100%" style="border-radius: 12px; border: 2px solid #9b6dff;" />
+  </a>
+</div>
+
 ---
 
 ## 👨‍💻 About Me
