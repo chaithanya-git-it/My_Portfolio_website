@@ -121,7 +121,7 @@ export function Hero() {
                   />
                 </span>
                 <span style={{ fontSize: "0.85rem", fontWeight: 600, color: "#d8b4e2", letterSpacing: "0.02em" }}>
-                  Open to new opportunities · Bangalore, IN
+                  Open to new opportunities
                 </span>
               </motion.div>
             </motion.div>
@@ -194,9 +194,9 @@ export function Hero() {
                   gap: "0.3rem",
                   boxShadow: "0 2px 14px rgba(255,215,0,0.3)",
                 }}
-                title="Click to view 3 Honor Awards & Master Mind Award!"
+                title="Click to view Master Mind & Tech Titan Awards!"
               >
-                🏆 3 Honor Awards ✨
+                🏆 Master Mind &amp; Tech Titan Awards ✨
               </span>
               .
             </p>
@@ -229,28 +229,29 @@ export function Hero() {
                 </motion.button>
               </Link>
 
-              <motion.button
-                onClick={() => setResumeOpen(true)}
-                whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(155,109,255,0.5)" }}
-                whileTap={{ scale: 0.95 }}
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "0.5rem",
-                  padding: "0.8rem 2.2rem",
-                  borderRadius: "9999px",
-                  background: "linear-gradient(135deg, #9b6dff 0%, #ff6da2 100%)",
-                  color: "#ffffff",
-                  fontWeight: 700,
-                  fontSize: "0.95rem",
-                  border: "none",
-                  cursor: "pointer",
-                  boxShadow: "0 0 20px rgba(155,109,255,0.35)",
-                  fontFamily: "var(--font-inter, Arial, sans-serif)",
-                }}
-              >
-                VIEW RESUME <FileText size={17} />
-              </motion.button>
+              <Link href="#contact" style={{ textDecoration: "none" }}>
+                <motion.button
+                  whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(155,109,255,0.5)" }}
+                  whileTap={{ scale: 0.95 }}
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "0.5rem",
+                    padding: "0.8rem 2.2rem",
+                    borderRadius: "9999px",
+                    background: "linear-gradient(135deg, #9b6dff 0%, #ff6da2 100%)",
+                    color: "#ffffff",
+                    fontWeight: 700,
+                    fontSize: "0.95rem",
+                    border: "none",
+                    cursor: "pointer",
+                    boxShadow: "0 0 20px rgba(155,109,255,0.35)",
+                    fontFamily: "var(--font-inter, Arial, sans-serif)",
+                  }}
+                >
+                  CONTACT ME <Mail size={17} />
+                </motion.button>
+              </Link>
             </div>
           </motion.div>
 
@@ -461,8 +462,7 @@ export function Hero() {
         >
           {[
             { num: "3.9+", label: "Years Experience" },
-            { num: "3", label: "Honor Awards" },
-            { num: "Full-Stack", label: "Mobile & Web" },
+            { num: "3", label: "Awards" },
             { num: "End-to-End", label: "Analysis to Execution" },
           ].map(({ num, label }) => (
             <div key={label} style={{ textAlign: "center" }}>

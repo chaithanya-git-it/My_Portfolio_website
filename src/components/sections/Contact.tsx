@@ -6,9 +6,22 @@ import { Section } from "@/components/ui/Section";
 import { Send, MapPin, Mail, Phone } from "lucide-react";
 
 const contactInfo = [
-  { icon: Mail, color: "#9b6dff", label: "Email", value: "chaithanya.avinash07@gmail.com", href: "mailto:chaithanya.avinash07@gmail.com" },
-  { icon: Phone, color: "#ff6da2", label: "Phone", value: "+91 90716 61874", href: "tel:+919071661874" },
-  { icon: MapPin, color: "#d8b4e2", label: "Location", value: "Bangalore, IN", href: null },
+  {
+    icon: Mail,
+    color: "#9b6dff",
+    label: "Email",
+    value: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "chaithanya.avinash07@gmail.com",
+    href: `mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL || "chaithanya.avinash07@gmail.com"}`
+  },
+  {
+    icon: Phone,
+    color: "#ff6da2",
+    label: "Phone",
+    value: process.env.NEXT_PUBLIC_CONTACT_PHONE || "+91 (Available on Request)",
+    href: process.env.NEXT_PUBLIC_CONTACT_PHONE
+      ? `tel:${process.env.NEXT_PUBLIC_CONTACT_PHONE}`
+      : `mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL || "chaithanya.avinash07@gmail.com"}?subject=Phone%20Number%20Request`
+  },
 ];
 
 const socials = [

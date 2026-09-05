@@ -10,7 +10,6 @@ const experiences = [
     company: "Digit Insurance",
     logo: "/digit-life-logo.svg",
     period: "Nov 2022 – Present",
-    location: "Bangalore, IN",
     description:
       "Promoted to Senior Software Engineer. Received the Master Mind Award for successful project releases and the Tech Titan Award for zero-delay execution. Took complete end-to-end responsibility, planning and guiding backend & app requirements from initial requirement analysis to final release. Engineered the Life Insurance Endorsement module (Name, Email, Mobile, Address & Bank/Payment updates) and Annuity & Liveliness pension payout module (Camera, ML Kit, Speech-to-Text) while guiding a 2-developer team with excellent communication.",
     skills: ["React Native", "Backend & API Planning", "ML Kit", "Speech-to-Text", "Camera APIs", "Re.Pack", "TypeScript", "Team Guidance"],
@@ -22,7 +21,6 @@ const experiences = [
     company: "PluginHive",
     logo: "/pluginhive.png",
     period: "Oct 2021 – Nov 2021",
-    location: "Bangalore, IN",
     description:
       "Developed barcode & QR code generation modules improving process speed by 30%. Integrated shipping carrier APIs enabling automated label generation, reducing fulfillment time by 20%.",
     skills: ["React Native", "JavaScript", "Barcode APIs", "Shipping APIs"],
@@ -146,7 +144,7 @@ export function Experience() {
                             </span>
                           )}
                         </div>
-                        <p style={{ color: exp.color, fontWeight: 500, margin: "0.1rem 0 0" }}>{exp.company} · {exp.location}</p>
+                        <p style={{ color: exp.color, fontWeight: 500, margin: "0.1rem 0 0" }}>{exp.company}</p>
                       </div>
                     </div>
                     <span style={{ padding: "0.25rem 0.75rem", borderRadius: "9999px", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)", color: "rgba(248,248,242,0.6)", fontSize: "0.8rem", fontWeight: 500, whiteSpace: "nowrap" }}>
@@ -228,7 +226,7 @@ export function Experience() {
                     Bachelor of Engineering (B.E.)
                   </p>
                   <p style={{ color: "rgba(255,215,0,0.75)", fontSize: "0.875rem", margin: "0.2rem 0 0" }}>
-                    East Point College of Engineering &amp; Technology, VTU · Bangalore, IN
+                    East Point College of Engineering &amp; Technology, VTU
                   </p>
                 </div>
               </div>

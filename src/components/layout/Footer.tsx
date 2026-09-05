@@ -34,7 +34,7 @@ export function Footer() {
               Chaithanya<span style={{ color: "#9b6dff" }}>.</span>
             </span>
             <p style={{ color: "rgba(248,248,242,0.4)", fontSize: "0.85rem", marginTop: "0.25rem" }}>
-              React Native · TypeScript · Bangalore, IN
+              React Native · TypeScript
             </p>
           </div>
 

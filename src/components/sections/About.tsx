@@ -207,7 +207,7 @@ export function About() {
                 marginBottom: "1.75rem",
               }}
             >
-              I am a <strong style={{ color: "#f8f8f2", fontWeight: 600 }}>Senior Software Engineer</strong> with extensive experience of over <strong style={{ color: "#d8b4e2", fontWeight: 600 }}>3.9 years</strong> at <strong style={{ color: "#9b6dff", fontWeight: 600 }}>Digit Insurance</strong>. My expertise is in planning, architecting, and delivering high-performance Mobile Apps (React Native, iOS, Android) and full-stack integration.
+              I am a <strong style={{ color: "#f8f8f2", fontWeight: 600 }}>Senior Software Engineer</strong> with extensive experience of over <strong style={{ color: "#d8b4e2", fontWeight: 600 }}>3.9 years</strong> at <strong style={{ color: "#9b6dff", fontWeight: 600 }}>Digit Insurance</strong>. My expertise is in planning, architecting, and delivering high-performance Mobile &amp; Web Applications (React Native, iOS, Android, Web).
             </p>
 
             {/* Key highlight feature blocks */}
@@ -253,7 +253,7 @@ export function About() {
                     Award-Winning Technical Leadership
                   </h3>
                   <p style={{ fontSize: "0.92rem", color: "rgba(248,248,242,0.65)", margin: 0, lineHeight: 1.6 }}>
-                    Honored with the Master Mind Award &amp; 3 Honor Awards for outstanding ownership, technical guidance, and team collaboration.
+                    Awarded the Master Mind Award &amp; Tech Titan Award for outstanding technical contribution, project delivery, and execution excellence.
                   </p>
                 </div>
               </div>

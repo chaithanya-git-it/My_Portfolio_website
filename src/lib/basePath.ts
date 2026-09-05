@@ -1,4 +1,4 @@
-export const BASE_PATH = "/My_Portfolio_website";
+export const BASE_PATH = process.env.NODE_ENV === "production" ? "/My_Portfolio_website" : "";
 
 export function getAssetPath(path: string): string {
   if (!path) return path;
@@ -6,7 +6,7 @@ export function getAssetPath(path: string): string {
     return path;
   }
   const cleanPath = path.startsWith("/") ? path : `/${path}`;
-  if (cleanPath.startsWith(BASE_PATH)) {
+  if (BASE_PATH && cleanPath.startsWith(BASE_PATH)) {
     return cleanPath;
   }
   return `${BASE_PATH}${cleanPath}`;

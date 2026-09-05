@@ -1,8 +1,10 @@
 "use client";
 
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Download, FileText, ExternalLink, Award, Briefcase, GraduationCap, Mail, Phone, MapPin, CheckCircle2 } from "lucide-react";
+import { X, Download, FileText, ExternalLink, Award, Briefcase, GraduationCap, Mail, Phone, MapPin, CheckCircle2, Eye } from "lucide-react";
 import { SiReact, SiTypescript, SiApple, SiAndroid } from "react-icons/si";
+import { getAssetPath } from "@/lib/basePath";
 
 interface ResumeModalProps {
   isOpen: boolean;
@@ -10,7 +12,13 @@ interface ResumeModalProps {
 }
 
 export function ResumeModal({ isOpen, onClose }: ResumeModalProps) {
+  const [showPdfEmbed, setShowPdfEmbed] = useState(false);
+
   if (!isOpen) return null;
+
+  const resumePdfPath =
+    process.env.NEXT_PUBLIC_RESUME_URL ||
+    getAssetPath("/Chaithanya_a_4_years_exp_mobile_app_dev_resume.pdf");
 
   return (
     <AnimatePresence>
@@ -49,7 +57,7 @@ export function ResumeModal({ isOpen, onClose }: ResumeModalProps) {
           style={{
             position: "relative",
             width: "100%",
-            maxWidth: "850px",
+            maxWidth: "880px",
             maxHeight: "90vh",
             overflowY: "auto",
             background: "rgba(15, 15, 22, 0.95)",
@@ -117,10 +125,60 @@ export function ResumeModal({ isOpen, onClose }: ResumeModalProps) {
               </p>
             </div>
 
-            {/* Actions: Download PDF & Print */}
-            <div style={{ display: "flex", gap: "0.75rem" }}>
+            {/* Actions: View PDF, Open PDF & Download PDF */}
+            <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", alignItems: "center" }}>
+              <motion.button
+                onClick={() => setShowPdfEmbed(!showPdfEmbed)}
+                whileHover={{ scale: 1.04, borderColor: "rgba(155,109,255,0.8)" }}
+                whileTap={{ scale: 0.95 }}
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "0.45rem",
+                  padding: "0.65rem 1.25rem",
+                  borderRadius: "9999px",
+                  background: showPdfEmbed ? "rgba(155,109,255,0.2)" : "rgba(255,255,255,0.05)",
+                  border: "1.5px solid rgba(155,109,255,0.5)",
+                  color: "#f8f8f2",
+                  fontWeight: 600,
+                  fontSize: "0.85rem",
+                  cursor: "pointer",
+                  fontFamily: "var(--font-outfit, Arial, sans-serif)",
+                }}
+              >
+                <Eye size={15} color="#9b6dff" /> {showPdfEmbed ? "Hide Document Preview" : "Preview PDF"}
+              </motion.button>
+
               <a
-                href="/Chaithanya_A_Resume.pdf"
+                href={resumePdfPath}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ textDecoration: "none" }}
+              >
+                <motion.button
+                  whileHover={{ scale: 1.04, borderColor: "rgba(255,109,162,0.8)" }}
+                  whileTap={{ scale: 0.95 }}
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "0.45rem",
+                    padding: "0.65rem 1.25rem",
+                    borderRadius: "9999px",
+                    background: "rgba(255,255,255,0.05)",
+                    border: "1.5px solid rgba(255,109,162,0.5)",
+                    color: "#f8f8f2",
+                    fontWeight: 600,
+                    fontSize: "0.85rem",
+                    cursor: "pointer",
+                    fontFamily: "var(--font-outfit, Arial, sans-serif)",
+                  }}
+                >
+                  <ExternalLink size={15} color="#ff6da2" /> Open Full PDF
+                </motion.button>
+              </a>
+
+              <a
+                href={resumePdfPath}
                 download="Chaithanya_A_Resume.pdf"
                 style={{ textDecoration: "none" }}
               >
@@ -131,7 +189,7 @@ export function ResumeModal({ isOpen, onClose }: ResumeModalProps) {
                     display: "inline-flex",
                     alignItems: "center",
                     gap: "0.55rem",
-                    padding: "0.7rem 1.4rem",
+                    padding: "0.65rem 1.4rem",
                     borderRadius: "9999px",
                     background: "linear-gradient(135deg, #9b6dff 0%, #ff6da2 100%)",
                     color: "#ffffff",
@@ -149,18 +207,34 @@ export function ResumeModal({ isOpen, onClose }: ResumeModalProps) {
             </div>
           </div>
 
-          {/* Quick Contact & Details Strip */}
-          <div style={{ display: "flex", flexWrap: "wrap", gap: "1.25rem", background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "1rem", padding: "1rem 1.25rem", marginBottom: "2rem" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: "0.45rem", fontSize: "0.85rem", color: "rgba(248,248,242,0.8)" }}>
-              <MapPin size={15} color="#9b6dff" /> Bangalore, IN
-            </div>
-            <div style={{ display: "flex", alignItems: "center", gap: "0.45rem", fontSize: "0.85rem", color: "rgba(248,248,242,0.8)" }}>
-              <Mail size={15} color="#ff6da2" /> chaithanya.a@digitlife.com
-            </div>
-            <div style={{ display: "flex", alignItems: "center", gap: "0.45rem", fontSize: "0.85rem", color: "rgba(248,248,242,0.8)" }}>
-              <Briefcase size={15} color="#61dafb" /> Digit Life Insurance (Current)
-            </div>
-          </div>
+          {/* Embedded PDF Document Preview Container */}
+          {showPdfEmbed && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "550px" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.4 }}
+              style={{
+                marginBottom: "2rem",
+                borderRadius: "1.25rem",
+                overflow: "hidden",
+                border: "1.5px solid rgba(155, 109, 255, 0.4)",
+                boxShadow: "0 10px 30px rgba(0,0,0,0.5)",
+                background: "#ffffff",
+              }}
+            >
+              <iframe
+                src={`${resumePdfPath}#view=FitH`}
+                title="Chaithanya A Resume Document"
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  border: "none",
+                }}
+              />
+            </motion.div>
+          )}
+
 
           {/* Executive Summary */}
           <div style={{ marginBottom: "2rem" }}>
@@ -168,7 +242,7 @@ export function ResumeModal({ isOpen, onClose }: ResumeModalProps) {
               Executive Summary
             </h3>
             <p style={{ fontSize: "0.95rem", color: "rgba(248,248,242,0.85)", lineHeight: 1.7, margin: 0 }}>
-              Senior Software Engineer with <strong>3.9+ years of proven experience</strong> leading end-to-end technical execution for high-scale enterprise mobile and web applications. Expert in <strong>React Native, TypeScript, React, Re.Pack Micro-Frontends, iOS (Swift), and Android (Kotlin)</strong>. Awarded the <strong>Master Mind Award</strong> and <strong>3 Honor Awards</strong> for architecting high-impact financial & insurance automation platforms.
+              Senior Software Engineer with <strong>3.9+ years of proven experience</strong> leading end-to-end technical execution for high-scale enterprise mobile and web applications. Expert in <strong>React Native, TypeScript, React, Re.Pack Micro-Frontends, iOS (Swift), and Android (Kotlin)</strong>. Awarded the <strong>Master Mind Award</strong> and <strong>Tech Titan Award</strong> for architecting high-impact financial & insurance automation platforms.
             </p>
           </div>
 
@@ -210,19 +284,19 @@ export function ResumeModal({ isOpen, onClose }: ResumeModalProps) {
             </div>
           </div>
 
-          {/* Honors & Awards */}
+          {/* Awards */}
           <div style={{ marginBottom: "1.5rem" }}>
             <h3 style={{ fontSize: "1.1rem", color: "#ffd700", textTransform: "uppercase", letterSpacing: "0.06em", fontWeight: 800, marginBottom: "0.75rem" }}>
-              Honors & Awards
+              Awards
             </h3>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "1rem" }}>
               <div style={{ background: "rgba(255,215,0,0.1)", border: "1px solid rgba(255,215,0,0.3)", borderRadius: "0.85rem", padding: "0.85rem 1rem" }}>
                 <p style={{ fontSize: "0.95rem", fontWeight: 800, color: "#ffd700", margin: 0 }}>🏆 Master Mind Award</p>
-                <p style={{ fontSize: "0.78rem", color: "rgba(248,248,242,0.7)", margin: "0.2rem 0 0 0" }}>Highest engineering honor at Digit Insurance</p>
+                <p style={{ fontSize: "0.78rem", color: "rgba(248,248,242,0.7)", margin: "0.2rem 0 0 0" }}>Recognized for technical contribution and successful execution of the Super App Micro Frontend (MFE) project.</p>
               </div>
               <div style={{ background: "rgba(155,109,255,0.1)", border: "1px solid rgba(155,109,255,0.3)", borderRadius: "0.85rem", padding: "0.85rem 1rem" }}>
-                <p style={{ fontSize: "0.95rem", fontWeight: 800, color: "#9b6dff", margin: 0 }}>🌟 3 Honor Awards</p>
-                <p style={{ fontSize: "0.78rem", color: "rgba(248,248,242,0.7)", margin: "0.2rem 0 0 0" }}>Recognized for exceptional ownership & delivery</p>
+                <p style={{ fontSize: "0.95rem", fontWeight: 800, color: "#9b6dff", margin: 0 }}>🏆 Tech Titan Award</p>
+                <p style={{ fontSize: "0.78rem", color: "rgba(248,248,242,0.7)", margin: "0.2rem 0 0 0" }}>Recognized for technical contributions, project delivery, and execution excellence.</p>
               </div>
             </div>
           </div>
