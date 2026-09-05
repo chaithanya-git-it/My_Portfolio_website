@@ -17,10 +17,8 @@ const contactInfo = [
     icon: Phone,
     color: "#ff6da2",
     label: "Phone",
-    value: process.env.NEXT_PUBLIC_CONTACT_PHONE || "+91 (Available on Request)",
-    href: process.env.NEXT_PUBLIC_CONTACT_PHONE
-      ? `tel:${process.env.NEXT_PUBLIC_CONTACT_PHONE}`
-      : `mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL || "chaithanya.avinash07@gmail.com"}?subject=Phone%20Number%20Request`
+    value: "+91 90716 61874",
+    href: "tel:+919071661874"
   },
 ];
 
