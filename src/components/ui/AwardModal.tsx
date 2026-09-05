@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Award, CheckCircle2, Sparkles } from "lucide-react";
 import confetti from "canvas-confetti";
+import { getAssetPath } from "@/lib/basePath";
 
 export interface AwardDetail {
   id: string;
@@ -278,7 +279,7 @@ export function AwardModal({ award, onClose }: AwardModalProps) {
               }}
             >
               <img
-                src={activeAward.imageUrl}
+                src={getAssetPath(activeAward.imageUrl)}
                 alt={activeAward.title}
                 style={{
                   maxWidth: "100%",
