@@ -40,7 +40,7 @@ export function Footer() {
 
           <div style={{ display: "flex", gap: "1.25rem" }}>
             {[
-              { Icon: Github, label: "GitHub", hoverColor: "#f8f8f2" },
+              { Icon: Github, label: "GitHub", hoverColor: "#f8f8f2", href: "https://github.com/chaithanya-git-it" },
               { Icon: Linkedin, label: "LinkedIn", hoverColor: "#9b6dff", href: "https://www.linkedin.com/in/chaithanya-a-2b75b31a3" },
               { Icon: Twitter, label: "Twitter", hoverColor: "#ff6da2" },
             ].map(({ Icon, label, hoverColor, href }) => (

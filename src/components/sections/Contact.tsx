@@ -26,7 +26,7 @@ const contactInfo = [
 
 const socials = [
   { label: "LinkedIn", href: "https://www.linkedin.com/in/chaithanya-a-2b75b31a3" },
-  { label: "GitHub", href: "#" },
+  { label: "GitHub", href: "https://github.com/chaithanya-git-it" },
 ];
 
 const inputStyle: React.CSSProperties = {
